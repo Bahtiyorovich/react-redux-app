@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { logo } from './../constants/index';
 import { Input } from '../UI';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUserStart } from '../slice/auth'
+import { registerUserStart, registerUserSuccess, registerUserFailure } from '../slice/auth'
 
 const Register = () => {
 
@@ -16,6 +16,8 @@ const Register = () => {
   const registerHandler = e => {
     e.preventDefault();
     dispatch(registerUserStart())
+    dispatch(registerUserSuccess())
+    dispatch(registerUserFailure())
   }
 
   return (
