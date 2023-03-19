@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { logo } from './../constants/index';
 import { Input } from '../UI';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUserStart } from '../slice/auth';
+import { signUserStart, signUserSuccess, signUserFailure } from '../slice/auth';
+import AuthService from '../service/auth'
 
 const Login = () => {
  
@@ -12,9 +13,22 @@ const Login = () => {
   const dispatch = useDispatch()
   const {isLoading} = useSelector(state => state.auth)
 
-  const loginHandler = (e) => {
+  const signHandler = async (e) => {
     e.preventDefault();
-    dispatch(loginUserStart())
+    dispatch(signUserStart())
+    const user = {
+      email,
+      password,
+    }
+
+    try {
+      const response = await AuthService.userLogin(user)
+      console.log(response)
+      console.log(user)
+      dispatch(signUserSuccess())
+    } catch(err) {
+      dispatch(signUserFailure(err.response.data.errors))
+    }
   }
 
   return (
@@ -22,7 +36,7 @@ const Login = () => {
       <main className="form-signin w-25 m-auto">
         <form>
           <img className="mb-2" src={logo} alt="" width="120" height="57" />
-            <h1 className="h3 mb-3 fw-normal">Login</h1>
+            <h1 className="h3 mb-3 fw-normal">sign</h1>
           <Input 
             label={'Email address'} 
             type={'email'}
@@ -43,7 +57,7 @@ const Login = () => {
               className="w-100 btn btn-lg btn-primary mt-2" 
               type="submit"
               disabled={isLoading}
-              onClick={loginHandler}
+              onClick={signHandler}
             >
               {isLoading ? 'loading...' : 'Login'}
             </button>

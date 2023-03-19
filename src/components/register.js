@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { logo } from './../constants/index';
 import { Input } from '../UI';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerUserStart, registerUserSuccess, registerUserFailure } from '../slice/auth'
+import { signUserStart, signUserSuccess, signUserFailure } from '../slice/auth'
+import AuthService from '../service/auth';
+
 
 const Register = () => {
 
@@ -10,14 +12,25 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {isLoading} = useSelector(state => state.auth)
+  const { isLoading } = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  const registerHandler = e => {
+  const signHandler = async (e) => {
     e.preventDefault();
-    dispatch(registerUserStart())
-    dispatch(registerUserSuccess())
-    dispatch(registerUserFailure())
+    dispatch(signUserStart())
+    const user = {
+      username: userName,
+      email,
+      password,
+    }
+    try {
+      const response  = await AuthService.usersign(user)
+      console.log(response)
+      console.log(user)
+      dispatch(signUserSuccess())
+    } catch (err) {
+      dispatch(signUserFailure(err.response.data.errors))
+    }
   }
 
   return (
@@ -25,42 +38,42 @@ const Register = () => {
       <main className="form-signin w-25 m-auto">
         <form>
           <img className="mb-2" src={logo} alt="" width="120" height="57" />
-            <h1 className="h3 mb-3 fw-normal">Register</h1>
+          <h1 className="h3 mb-3 fw-normal">sign</h1>
 
 
-          <Input 
-            label={'Username'} 
+          <Input
+            label={'Username'}
             type={'text'}
-            id={'username'} 
+            id={'username'}
             state={userName}
             setState={setUsername}
-            />
-          <Input 
-            label={'Email address'} 
+          />
+          <Input
+            label={'Email address'}
             type={'email'}
-            id={'emailName'} 
+            id={'emailName'}
             state={email}
             setState={setEmail}
-            />
-          <Input 
-            label={'Password'} 
+          />
+          <Input
+            label={'Password'}
             type={'password'}
-            id={'passwordValue'} 
+            id={'passwordValue'}
             state={password}
             setState={setPassword}
-            />
-           
+          />
 
-            <button 
-              className="w-100 btn btn-lg btn-primary mt-2" 
-              type="submit"
-              disabled={isLoading}
-              onClick={registerHandler}
-            >
-              { isLoading ? 'loading...' : 'REGISTER'}
 
-            </button>
-            <p className="mt-5 mb-3 text-muted">© 2021–2024</p>
+          <button
+            className="w-100 btn btn-lg btn-primary mt-2"
+            type="submit"
+            disabled={isLoading}
+            onClick={signHandler}
+          >
+            {isLoading ? 'loading...' : 'Register'}
+
+          </button>
+          <p className="mt-5 mb-3 text-muted">© 2021–2024</p>
         </form>
       </main>
     </div>
