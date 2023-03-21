@@ -4,6 +4,7 @@ import { Input } from '../UI';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUserStart, signUserSuccess, signUserFailure } from '../slice/auth'
 import AuthService from '../service/auth';
+import { ValidationError } from './';
 
 
 const Register = () => {
@@ -15,7 +16,7 @@ const Register = () => {
   const { isLoading } = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  const signHandler = async (e) => {
+  const registerHandler = async (e) => {
     e.preventDefault();
     dispatch(signUserStart())
     const user = {
@@ -24,11 +25,9 @@ const Register = () => {
       password,
     }
     try {
-      const response  = await AuthService.usersign(user)
-      console.log(response)
-      console.log(user)
-      dispatch(signUserSuccess())
-    } catch (err) {
+      const response  = await AuthService.userRegister(user)
+      dispatch(signUserSuccess(response.user))
+    } catch(err) {
       dispatch(signUserFailure(err.response.data.errors))
     }
   }
@@ -38,8 +37,9 @@ const Register = () => {
       <main className="form-signin w-25 m-auto">
         <form>
           <img className="mb-2" src={logo} alt="" width="120" height="57" />
-          <h1 className="h3 mb-3 fw-normal">sign</h1>
+          <h1 className="h3 mb-3 fw-normal">Register</h1>
 
+          <ValidationError/>
 
           <Input
             label={'Username'}
@@ -68,7 +68,7 @@ const Register = () => {
             className="w-100 btn btn-lg btn-primary mt-2"
             type="submit"
             disabled={isLoading}
-            onClick={signHandler}
+            onClick={registerHandler}
           >
             {isLoading ? 'loading...' : 'Register'}
 
