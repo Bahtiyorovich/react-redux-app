@@ -1,1 +1,0 @@
-export const logo = 'https://aniq.uz/photos/5f94725d6bc9b.jpg'
