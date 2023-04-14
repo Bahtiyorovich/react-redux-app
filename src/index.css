@@ -6,3 +6,12 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+.logo {
+  max-width:130px 
+}
+
+.link {
+  color: #000;
+  margin-left: 20px;
+}
