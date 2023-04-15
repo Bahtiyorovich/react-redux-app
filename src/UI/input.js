@@ -12,7 +12,7 @@ const Input = ({type, idText, placeholder, labelText, state, setState}) => {
             onChange={e => setState(e.target.value)}
         />
 
-        <label for={idText}>{labelText}</label>
+        <label htmlFor={idText}>{labelText}</label>
     </div>
   )
 }

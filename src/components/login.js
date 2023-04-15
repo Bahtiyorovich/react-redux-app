@@ -1,12 +1,22 @@
 import { Button, Input } from "../UI"
 import { myLogo } from "../assets"
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { loginUserStart } from "../slice/auth"
 
 const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
+  const dispatch = useDispatch()
+  const {isLoading} = useSelector(state => state.auth)
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+    dispatch(loginUserStart())
+  }
+
   return (
     <main className="d-flex align-items-center justify-content-center w-100 mt-5 container">
       <form className="w-25">
@@ -30,7 +40,7 @@ const Login = () => {
             setState={setPassword}
           />
 
-          <Button name={'Login'}/>
+          <Button name={isLoading ? 'Loading...' : 'Login'} method={loginHandler} disabled={isLoading}/>
           <p className=" text-center mt-3 mb-3 text-body-secondary">© 2020–2023</p>
       </form>
     </main>
