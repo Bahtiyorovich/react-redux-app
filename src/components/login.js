@@ -2,7 +2,8 @@ import { Button, Input } from "../UI"
 import { myLogo } from "../assets"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUserStart } from "../slice/auth"
+import { signUserStart, signUserSuccess,signUserFailure } from "../slice/auth"
+import AuthService from "../service/auth"
 
 const Login = () => {
 
@@ -12,14 +13,21 @@ const Login = () => {
   const dispatch = useDispatch()
   const {isLoading} = useSelector(state => state.auth)
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    dispatch(loginUserStart())
+    dispatch(signUserStart())
+    const user = {email, password}
+    try {
+      const response = await AuthService.userLogin(user)
+      dispatch(signUserSuccess(response.user))
+    } catch(error){
+      dispatch(signUserFailure(error.response.data.errors))
+    }
   }
 
   return (
     <main className="d-flex align-items-center justify-content-center w-100 mt-5 container">
-      <form className="w-25">
+      <form className="md:w-50">
           <img className="ms-5 mb-4 mylogo" src={myLogo} alt="" />
           <h1 className="h3 mb-3 fw-normal text-center">Log in</h1>
 
