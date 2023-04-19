@@ -1,26 +1,30 @@
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Login, Main, Navbar, Register } from "./components"
-import AuthService from "./service/auth"
-import { useEffect } from "react"
 import { getItem } from "./helpers/persistance-storage"
+import { signUserSuccess } from "./slice/auth"
+import AuthService from "./service/auth"
 
 const App = () => {
+
+  const dispatch = useDispatch()
 
   const getUser = async () => {
     try {
       const response = await AuthService.getUser()
-      console.log(response)
+      dispatch(signUserSuccess(response.user))
     } catch(error) {
       console.log(error)
     }
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     const token = getItem('token')
     if(token){
       getUser()
     }
-  }, [])
+  },[])
 
   return (
     <>
