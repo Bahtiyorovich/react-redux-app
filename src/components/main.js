@@ -12,7 +12,6 @@ const Main = () => {
      { isLoading && <Loader/>}
       <div className="album py-5">
         <div>
-
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {articles.map(item => (
               <div className="col" key={item.id}>
@@ -20,12 +19,8 @@ const Main = () => {
                   <svg className="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect></svg>
 
                   <div className="card-body">
-                    <p className="card-text fw-bold fs-6">
-                      {item.title}
-                    </p>
-                    <p className="card-text fs-6">
-                      {item.description}
-                    </p>
+                    <p className="card-text fw-bold m-0">{item.title}</p>
+                    <p className="card-text ">{item.description}</p>
                   </div>
                   <div className="d-flex card-footer justify-content-between align-items-center">
                     <div className="btn-group">
@@ -41,6 +36,7 @@ const Main = () => {
 
             ))}
           </div>
+
         </div>
       </div>
     </div>

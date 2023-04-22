@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
 import { ArticleDetail, Login, Main, Navbar, Register } from "./components"
