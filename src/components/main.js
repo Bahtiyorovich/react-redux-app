@@ -19,7 +19,7 @@ const Main = () => {
                   <svg className="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect></svg>
 
                   <div className="card-body">
-                    <p className="card-text fw-bold m-0">{item.title}</p>
+                    <p className="card-text fw-bold m-1">{item.title}</p>
                     <p className="card-text ">{item.description}</p>
                   </div>
                   <div className="d-flex card-footer justify-content-between align-items-center">
