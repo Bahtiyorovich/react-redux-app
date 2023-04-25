@@ -5,8 +5,6 @@ import { ArticleDetail, CreateArticle, Login, Main, Navbar, Register } from "./c
 import  {getItem } from "./helpers/persistance-storage"
 import { signUserSuccess } from "./slice/auth"
 import AuthService from "./service/auth"
-import ArticleService from './service/article';
-import { getArticleStart, getArticleSuccess } from "./slice/article"
 
 const App = () => {
 
@@ -21,23 +19,13 @@ const App = () => {
     }
   }
 
-  const getArticles = async () => {
-    dispatch(getArticleStart())
-    try{
-      const response = await ArticleService.getArticles()
-      dispatch(getArticleSuccess(response.articles))
-    } catch(error){
-      console.log(error)
-    }
-  }
-
+  
   useEffect(() => { 
     const token = getItem('token')
     if(token){
       getUser()
     }
 
-    getArticles()
   }, [])
 
   return (

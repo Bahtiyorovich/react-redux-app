@@ -10,8 +10,6 @@ const Navbar = () => {
   const {loggedIn, user} = useSelector(state => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-
   
   const logoutHandler = () => {
     dispatch(logoutUser())

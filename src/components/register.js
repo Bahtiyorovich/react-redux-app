@@ -4,7 +4,7 @@ import { myLogo } from "../assets"
 import { useDispatch, useSelector } from "react-redux"
 import { signUserFailure, signUserStart, signUserSuccess } from "../slice/auth"
 import AuthService from './../service/auth';
-import ValidationError from "./validation-error"
+import {ValidationError} from "./"
 import { useNavigate } from "react-router-dom"
 
 const Register = () => {
