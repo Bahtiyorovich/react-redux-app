@@ -29,8 +29,8 @@ const CreateArticle = () => {
   const formProps = { title, setTitle, description, setDescription, body, setBody, formSubmit }
 
   return (
-    <div className="container">
-      <h2 className="fs-2 text-center">Create Article</h2>
+    <div className="text-center">
+      <h2 className="fs-2">Create Article</h2>
       <div className="w-75 mx-auto">
         <CreateUpdate {...formProps} />
       </div>
